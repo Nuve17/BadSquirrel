@@ -6,4 +6,4 @@
 
 ### Usage
 
-To use this script, you must set your credentials in the file 
+To use this script, please contact me 
