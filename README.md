@@ -1,10 +1,8 @@
 # BadSquirrel
 
-## MITM miner
+## MITM JS Injector
+Specify your javascript payload in miner_script
 
-## XXS Finder
-DSXS
-XSSSniper
 ### Usage
 
-To use this script, please contact me 
+Launches the BadSquirrel.py with a files contains IP of victims and the interface which should use

