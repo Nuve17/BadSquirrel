@@ -1,0 +1,4 @@
+netifaces==0.10.7
+mitmproxy==4.0.1
+scapy==2.4.0
+beautifulsoup4==4.6.0
