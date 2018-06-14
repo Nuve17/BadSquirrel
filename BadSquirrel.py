@@ -40,14 +40,12 @@ def main():
 
 
 	mitmdump(['-s', 'injector.py', '--showhost', '--mode', 'transparent', '--showhost'])
+	#mitmdump(['-s', 'sslstrip.py', '-s', 'injector.py', '--showhost', '--mode', 'transparent', '--showhost', '--cert', '*=certs/cert.pem'])
 	webserver_thread.join()
 	poison_thread.join()
 	webserver_thread._stop()
 	poison_thread._stop()
-	
-	'''
-	# run sslstrip
-	os.system("xterm -e sslstrip -l 8080 &")
-	'''
+
+
 if __name__ == '__main__':
 	main()
