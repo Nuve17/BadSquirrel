@@ -8,4 +8,5 @@ Launches the BadSquirrel.py with a files contains IP of victims and the interfac
 
 ## Dependencies
 Dependencies for Python 3 included in `requirements.txt` and can be installed  
-using `pip` with `pip install -r requirements.txt`.
+using `pip` with `pip install -r requirements.txt`.  
+Please update `requirements.txt` when you add new library with `pipreqs /path/to/project`
