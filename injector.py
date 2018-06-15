@@ -6,7 +6,7 @@ import argparse
 
 def response(flow: http.HTTPFlow) -> None:
     print("response")
-    path="http://192.168.1.10:8000/script.js"
+    path="http://192.168.1.10:8000/payloads/script.js"
     if path:
         html = BeautifulSoup(flow.response.content, "html.parser")
         print(path)
