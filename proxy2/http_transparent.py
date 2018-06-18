@@ -37,7 +37,16 @@ def inject_js_into_client(res_body):
 
 def check_user(ipclient):
     print "check if the user have certificate"
-
+    if os.path.exists('ipclient.txt'):
+        with open('ipclient.txt', 'r') as read_ip:
+            for i in read_ip:
+                print 1, i,ipclient
+                if ipclient == i:
+                    return False
+                else:
+                    return True
+    else:
+        return True
 class ThreadingHTTPServer(ThreadingMixIn, HTTPServer):
     address_family = socket.AF_INET6
     daemon_threads = True
@@ -73,14 +82,12 @@ class ProxyRequestHandler(BaseHTTPRequestHandler):
         self.log_message(format, *args)
 
     def do_CONNECT(self):
-        print "self",self
         if os.path.isfile(self.cakey) and os.path.isfile(self.cacert) and os.path.isfile(self.certkey) and os.path.isdir(self.certdir):
             self.connect_intercept()
         else:
             self.connect_relay()
 
     def connect_intercept(self):
-        print "connect_intercept"
         hostname = self.path.split(':')[0]
         certpath = "%s/%s.crt" % (self.certdir.rstrip('/'), hostname)
 
@@ -132,11 +139,11 @@ class ProxyRequestHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         req=self
 
-        do_CONNECT(self)
-        print self.client_address[0].split(':')[-1:], '192.168.1.10'
-        print req.headers['Host'] == '192.168.1.10'
-        if req.headers['Host'] == '192.168.1.10':
-            print "OK"
+        if check_user(''.join(self.client_address[0].split(':')[-1:]))==True:
+            print "OK",''.join(self.client_address[0].split(':')[-1:])
+            #with open('ipclient.txt', 'a') as write_ip:
+                #write_ip.write(''.join(self.client_address[0].split(':')[-1:]))
+            self.send_RGPD()
             self.send_cacert()
             return
 
@@ -286,7 +293,20 @@ class ProxyRequestHandler(BaseHTTPRequestHandler):
             raise Exception("Unknown Content-Encoding: %s" % encoding)
         return text
 
+    def send_RGPD(self):
+        print "rgpd"
+        with open("rgpd.html", 'rb') as f:
+            data = f.read()
+
+        self.wfile.write("%s %d %s\r\n" % (self.protocol_version, 200, 'OK'))
+        self.send_header('Content-Type', 'text')
+        self.send_header('Content-Length', len(data))
+        self.send_header('Connection', 'Keep-Alive')
+        self.end_headers()
+        self.wfile.write(data)
+
     def send_cacert(self):
+        
         with open(self.cacert, 'rb') as f:
             data = f.read()
 
@@ -394,12 +414,8 @@ class ProxyRequestHandler(BaseHTTPRequestHandler):
         self.print_info(req, req_body, res, res_body)
 
 
-def test(HandlerClass=ProxyRequestHandler, ServerClass=ThreadingHTTPServer, protocol="HTTP/1.1"):
-    if sys.argv[1:]:
-        port = int(sys.argv[1])
-    else:
-        port = 8080
-    server_address = ('::0', port)
+def interception_http(HandlerClass=ProxyRequestHandler, ServerClass=ThreadingHTTPServer, protocol="HTTP/1.1"):
+    server_address = ('::0', 8080)
 
     HandlerClass.protocol_version = protocol
     httpd = ServerClass(server_address, HandlerClass)
@@ -410,4 +426,4 @@ def test(HandlerClass=ProxyRequestHandler, ServerClass=ThreadingHTTPServer, prot
 
 
 if __name__ == '__main__':
-    test()
+    interception_http()

@@ -6,12 +6,14 @@ class ThreadingHTTPSServer(ThreadingHTTPServer):
 
     cakey = 'ca.key'
     cacert = 'ca.crt'
-
     def get_request(self):
         request, client_address = self.socket.accept()
+        #print help(self.socket)
+        #print self.socket.getpeername()
         request = ssl.wrap_socket(request, keyfile=self.cakey, certfile=self.cacert, server_side=True)
-        print request
-        raw_input()
+        #print help(self)
+        #print help(ssl)
+        #raw_input()
         return request, client_address
 
     def handle_error(self, request, client_address):
@@ -23,12 +25,9 @@ class ThreadingHTTPSServer(ThreadingHTTPServer):
             return HTTPServer.handle_error(self, request, client_address)
 
 
-def test(HandlerClass=ProxyRequestHandler, ServerClass=ThreadingHTTPSServer, protocol="HTTP/1.1"):
-    if sys.argv[1:]:
-        port = int(sys.argv[1])
-    else:
-        port = 9090
-    server_address = ('', port)
+def interception_https(HandlerClass=ProxyRequestHandler, ServerClass=ThreadingHTTPSServer, protocol="HTTP/1.1"):
+
+    server_address = ('', 9090)
 
     HandlerClass.protocol_version = protocol
     httpd = ServerClass(server_address, HandlerClass)
@@ -37,6 +36,5 @@ def test(HandlerClass=ProxyRequestHandler, ServerClass=ThreadingHTTPSServer, pro
     print "Serving HTTPS Proxy on", sa[0], "port", sa[1], "..."
     httpd.serve_forever()
 
-
 if __name__ == '__main__':
-    test()
+    interception_https()
