@@ -21,7 +21,7 @@ Celle-ci lui propose d'enregistrer notre CA pour garantir la sécurité de ses d
 Une fois, la CA importer notre victime est compromise Nous avons acces a toutes les données qui transite entre sont navigateur web et l'extérieur.
 
 ## Usage
-First start run `./setup_https_intercept.sh`
+First start run `./setup_https_intercept.sh`   
 Launches  the `BadSquirrel.py -i eth0` with root privelege.
 
 ### MITM JS Injector
