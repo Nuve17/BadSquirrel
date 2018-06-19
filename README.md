@@ -35,7 +35,7 @@ Please update `requirements.txt` when you add new library with `pipreqs /path/to
 
 
 ## TODO
-Mettre en place le DHCP Starvation
-Fermer de manieres propres le script `KeyboardInterrupt`
-Auto-update du fichier local.conf
-Start/ Stop du DNSMASQ dans `BadSquirrel.py`
+Mettre en place le DHCP Starvation  
+Fermer de manieres propres le script `KeyboardInterrupt`  
+Auto-update du fichier local.conf  
+Start/ Stop du DNSMASQ dans `BadSquirrel.py`  
