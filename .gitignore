@@ -1,0 +1,3 @@
+*.pyc
+certs/**
+__pycache__/**
