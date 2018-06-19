@@ -14,7 +14,6 @@ def main():
 
 	parser = argparse.ArgumentParser(description='ESGI final projet')
 	parser.add_argument('-i', '--interface',help='Interface used for MITM ')
-	parser.add_argument('-f', '--file', help='Path to file contain victime address one pair line')
 	args = parser.parse_args()
 	os.system("echo 1 > /proc/sys/net/ipv4/ip_forward")
 	os.system("iptables -t nat -A POSTROUTING -o"+args.interface+" -j MASQUERADE")
@@ -27,16 +26,16 @@ def main():
 	#Action a effectuer
 
 	try:
-		#http_server_thread = threading.Thread(target=http_server.start)
-		#print("Lancement du thread http_server")
-		#http_server_thread.start()
-		#interception_http_thread = threading.Thread(target=interception_http)
+		http_server_thread = threading.Thread(target=http_server.start)
+		print("Lancement du thread http_server")
+		http_server_thread.start()
+		interception_http_thread = threading.Thread(target=interception_http)
 		print("Lancement du thread interception")
-		#interception_http_thread.start()
+		interception_http_thread.start()
 		#interception_http_thread.join(1)
-		#interception_https_thread = threading.Thread(target=interception_https)
+		interception_https_thread = threading.Thread(target=interception_https)
 		print("Lancement du thread interception_https")
-		#interception_https_thread.start()
+		interception_https_thread.start()
 		#http_server.main()
 	#Action a effectuer avant la fermeture de script
 
