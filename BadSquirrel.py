@@ -1,13 +1,14 @@
-#! /usr/bin/Python
+#! /usr/bin/python
 # coding: utf-8
 
 import os, sys, argparse
 import threading
+from time import sleep
+import signal
 # Mylib
-import http_server
+from http_server import web_server
 from http_transparent import interception_http
 from https_transparent import interception_https
-
 from graphismes import banniere
 
 def main():
@@ -26,29 +27,35 @@ def main():
 	#Action a effectuer
 
 	try:
-		http_server_thread = threading.Thread(target=http_server.start)
-		print("Lancement du thread http_server")
+		http_server_thread = threading.Thread(target=web_server)
+		print("[+]Lancement du thread http_server")
 		http_server_thread.start()
 		interception_http_thread = threading.Thread(target=interception_http)
-		print("Lancement du thread interception")
+		print("[+]Lancement du thread interception_http")
 		interception_http_thread.start()
-		#interception_http_thread.join(1)
+		sleep(1)
 		interception_https_thread = threading.Thread(target=interception_https)
-		print("Lancement du thread interception_https")
+		print("[+]Lancement du thread interception_https")
 		interception_https_thread.start()
-		#http_server.main()
+
+		#Force a rester dans le try:
+
+		while True:
+			pass
 	#Action a effectuer avant la fermeture de script
+	except KeyboardInterrupt as e:
+		print "[+]Interuption clavier"
+		print "[+]Fermeture du serveur web"
+		http_server_thread.join()
+		print "[+]Fermeture des proxys"
+		interception_http_thread.join()
+		interception_https_thread.join()
 
-	except KeyboardInterrupt:
-		print "fermeture des threds"
-		#http_server_thread.join(10)
-		print "fermeture des threads"
+		print "[+]Suppréssion des regles iptables"
+		os.system("bash ./ShellScript/CleanIpTables.sh")
+		print "Bye"
+		os.kill( os.getpid(), signal.SIGKILL)
 
-		interception_https_thread._stop()
-		print "Interuption clavier"
-		print "suppréssion des regles iptables"
-		os.system("bash CleanIpTables.sh")
-		sys.exit()
 
 banniere()
 main()

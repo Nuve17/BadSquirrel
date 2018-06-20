@@ -17,11 +17,12 @@ class QuietSimpleHTTPRequestHandler(SimpleHTTPRequestHandler):
         """Drops messages intended to be printed
         """
         pass
-def start():
+def web_server ():
     #server.daemon_threads = True
     web_dir = os.path.join(os.path.dirname(__file__), 'web')
     os.chdir(web_dir)
     httpd = HTTPServer(('', 7070), QuietSimpleHTTPRequestHandler)
     httpd.serve_forever()
 
-start()
+if __name__ == '__main__':
+    web_server()
