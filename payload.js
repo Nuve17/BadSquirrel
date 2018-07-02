@@ -1,1 +1,1 @@
-"<script>alert('injected!');</script></body></html>"
+<script>alert('injected!');</script></body></html>
