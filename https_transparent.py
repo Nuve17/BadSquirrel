@@ -33,7 +33,7 @@ def interception_https(HandlerClass=ProxyRequestHandler, ServerClass=ThreadingHT
     httpd = ServerClass(server_address, HandlerClass)
 
     sa = httpd.socket.getsockname()
-    print "Serving HTTPS Proxy on", sa[0], "port", sa[1], "..."
+    #print "Serving HTTPS Proxy on", sa[0], "port", sa[1], "..."
     httpd.serve_forever()
 
 if __name__ == '__main__':

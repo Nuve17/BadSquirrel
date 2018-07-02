@@ -16,8 +16,11 @@ def main():
 	parser = argparse.ArgumentParser(description='ESGI final projet')
 	parser.add_argument('-i', '--interface',help='Interface used for MITM ')
 	args = parser.parse_args()
+
 	os.system("echo 1 > /proc/sys/net/ipv4/ip_forward")
 	os.system("iptables -t nat -A POSTROUTING -o"+args.interface+" -j MASQUERADE")
+
+	os.system("service dnsmasq start") # Start du serveur DHCP
 
 	"""	# configure routing (IPTABLES)
 	os.system("iptables -t nat -A PREROUTING -p tcp --destination-port 80 -j REDIRECT --to-port 8080")
@@ -37,20 +40,19 @@ def main():
 		interception_https_thread = threading.Thread(target=interception_https)
 		print("[+]Lancement du thread interception_https")
 		interception_https_thread.start()
-
+		print "[+] Ready for interception !! "
 		#Force a rester dans le try:
-
 		while True:
 			pass
 	#Action a effectuer avant la fermeture de script
 	except KeyboardInterrupt as e:
-		print "[+]Interuption clavier"
+		print "[+]InteruptionOK clavier"
 		print "[+]Fermeture du serveur web"
-		http_server_thread.join()
+		#http_server_thread.join()
 		print "[+]Fermeture des proxys"
-		interception_http_thread.join()
-		interception_https_thread.join()
-
+		#interception_http_thread.join()
+		#interception_https_thread.join()
+		os.system("service dnsmasq stop") # Start du serveur DHCP
 		print "[+]Suppréssion des regles iptables"
 		os.system("bash ./ShellScript/CleanIpTables.sh")
 		print "Bye"

