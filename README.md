@@ -38,9 +38,7 @@ Please update `requirements.txt` when you add new library with `pipreqs /path/to
 
 
 ## TODO
+Utiliser la page RGPD et pas envoie de `ca.crt` direct 
 Mettre en place le DHCP Starvation  
-Fermer de manieres propres le script `KeyboardInterrupt`  
-Auto-update du fichier local.conf  
-Start/ Stop du DNSMASQ dans `BadSquirrel.py`  
 Générer des JS malveillant  
-Utilisations possible du plusieurs payload  
+Choix des différent Payload
