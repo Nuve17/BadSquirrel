@@ -17,11 +17,9 @@ auto lo
 iface lo inet loopback
 
 auto eth0
-iface eth0 inet static
-    address 10.0.2.20
-    netmask 255.255.255.0
-    gateway 10.0.2.15
+iface eth0 inet dhcp
 ```
+
 
 ### Attacker
 - network adapter:
@@ -59,14 +57,14 @@ iface eth1 inet static
     netmask 255.255.255.0
 ```
 
-Clean IPTABLES:
+##Clean IPTABLES:
 
 ```
 iptables --flush
 iptables --table nat --flush
 ```
 
-Configure the Gateway machine as a router:
+##Configure the Gateway machine as a router:
 
 ```
 echo 1 > /proc/sys/net/ipv4/ip_forward

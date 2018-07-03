@@ -10,6 +10,7 @@ from http_server import web_server
 from http_transparent import interception_http
 from https_transparent import interception_https
 from graphismes import banniere
+from dhcp_starvation import start_starvation
 
 def main():
 
@@ -40,6 +41,9 @@ def main():
 		interception_https_thread = threading.Thread(target=interception_https)
 		print("[+]Lancement du thread interception_https")
 		interception_https_thread.start()
+		start_starvation_thread = threading.Thread(target=start_starvation)
+		print("[+]Lancement du thread start_starvation")
+		start_starvation_thread.start()
 		print "[+] Ready for interception !! "
 		#Force a rester dans le try:
 		while True:
@@ -53,7 +57,7 @@ def main():
 		#interception_http_thread.join()
 		#interception_https_thread.join()
 		os.system("service dnsmasq stop") # Start du serveur DHCP
-		print "[+]Suppréssion des regles iptables"
+		print "[+] Suppréssion des regles iptables"
 		os.system("bash ./ShellScript/CleanIpTables.sh")
 		print "Bye"
 		os.kill( os.getpid(), signal.SIGKILL)

@@ -13,19 +13,20 @@
 
 
 ## Fontionnement
-Réserve toutes les adresse du DHCP pour proposer un dhcp via DNSMASQ.  
-Notre DHCP propose un WPAD.dat sur le 7070 (Web Proxy Auto-Detect).  
-Le navigateur de la victime ce connecte a notre proxy.  
-A la premiere connexion la victime est redirigée sur notre page `rgpd.html`  
-Celle-ci lui propose d'enregistrer notre CA pour garantir la sécurité de ses données.  
-Une fois, la CA importer notre victime est compromise Nous avons acces a toutes les données qui transite entre sont navigateur web et l'extérieur.
+1. Sature toutes les adresses IP du serveur DHCP légtimes (Gateway)  
+2. Notre serveur DHCP malveillant propose des adresses IP avec l'option 252 (Web Proxy Auto-Detect) `http://10.0.2.10:7070/wpad.dat`  
+3. Le navigateur des victimes se connecte sur notre proxy  
+4. Ils sont redirigés sur une page de phising `rgpd.html`. Cette page leurs propose notre CA `Bad Squirrel CA`.  
+5. Une fois la CA importé dans leurs navigateur nous pouvons leurs générer des certificat pour chaque site web consulté.  
+6. Sur chaque page avec `Content-type: html/text` nous injectons du JS qui monitore quel client nous avons infecté.
 
 ## Usage
+Configuration des machines virtuelle dans [virtualbox_scenario_instructions.md]  
 First start run `./setup_https_intercept.sh`   
 Launches  the `BadSquirrel.py -i eth0` with root privelege.
 
 ### MITM JS Injector
-Specify your javascript payload in `inject_js_into_client()`
+Specify your javascript payload in `payload.js`
 
 ### Configuration de DNSMASQ
 `cp BadSquirrel/local.conf /etc/dnsmasq.d/`
@@ -40,6 +41,9 @@ Specify your javascript payload in `inject_js_into_client()`
 |       Opera        | ✔  | ✖ |
 
 Testé sur Windows 7 64 bits
+### Monitoring client
+
+Description by SPL
 
 ### Dependencies
 Dependencies for Python 2.7 included in `requirements.txt` and can be installed  
@@ -48,7 +52,9 @@ Please update `requirements.txt` when you add new library with `pipreqs /path/to
 
 
 ## TODO
-Utiliser la page RGPD et pas envoie de `ca.crt` direct
-Mettre en place le DHCP Starvation  
-Générer des JS malveillant  
-Choix des différent Payload
+1. Utiliser la page RGPD et pas envoie de `ca.crt` direct
+2. Générer des JS malveillant  
+3. Choix des différent Payload
+4. Création d'un schema réseau pour l'explication du concepte
+
+[virtualbox_scenario_instructions.md]: https://github.com/Nuve17/BadSquirrel/blob/master/virtualbox_scenario_instructions.md  

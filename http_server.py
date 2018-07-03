@@ -21,7 +21,7 @@ def web_server ():
     #server.daemon_threads = True
     web_dir = os.path.join(os.path.dirname(__file__), 'web')
     os.chdir(web_dir)
-    httpd = HTTPServer(('', 80), QuietSimpleHTTPRequestHandler)
+    httpd = HTTPServer(('', 7070), QuietSimpleHTTPRequestHandler)
     httpd.serve_forever()
 
 if __name__ == '__main__':

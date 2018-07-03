@@ -146,7 +146,7 @@ class ProxyRequestHandler(BaseHTTPRequestHandler):
             print "[#] Certficate injected:",''.join(self.client_address[0].split(':')[-1:])
             with open('ipclient.txt', 'a') as write_ip:
                 write_ip.write(''.join(self.client_address[0].split(':')[-1:]))
-            self.send_cacert()
+            self.send_RGPD()
             return
 
         req = self
