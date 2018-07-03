@@ -30,6 +30,16 @@ Specify your javascript payload in `inject_js_into_client()`
 ### Configuration de DNSMASQ
 `cp BadSquirrel/local.conf /etc/dnsmasq.d/`
 
+### Browser with detect WPAD by default
+
+| Browser             | By default    | Manual activation |
+|--------------------|----------------|---------|
+| Internet Explorer  | ✔  | ✖ |
+| Google Chrome      | ✔  | ✖ |
+|       Firefox      | ✖  | ✔ |
+|       Opera        | ✔  | ✖ |
+
+Testé sur Windows 7 64 bits
 
 ### Dependencies
 Dependencies for Python 2.7 included in `requirements.txt` and can be installed  
@@ -38,7 +48,7 @@ Please update `requirements.txt` when you add new library with `pipreqs /path/to
 
 
 ## TODO
-Utiliser la page RGPD et pas envoie de `ca.crt` direct 
+Utiliser la page RGPD et pas envoie de `ca.crt` direct
 Mettre en place le DHCP Starvation  
 Générer des JS malveillant  
 Choix des différent Payload
