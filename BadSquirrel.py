@@ -37,13 +37,12 @@ def main():
 		interception_http_thread = threading.Thread(target=interception_http)
 		print("[+]Lancement du thread interception_http")
 		interception_http_thread.start()
-		sleep(1)
 		interception_https_thread = threading.Thread(target=interception_https)
 		print("[+]Lancement du thread interception_https")
 		interception_https_thread.start()
-		start_starvation_thread = threading.Thread(target=start_starvation)
-		print("[+]Lancement du thread start_starvation")
-		start_starvation_thread.start()
+		#start_starvation_thread = threading.Thread(target=start_starvation)
+		#print("[+]Lancement du thread start_starvation")
+		#start_starvation_thread.start()
 		print "[+] Ready for interception !! "
 		#Force a rester dans le try:
 		while True:

@@ -33,12 +33,12 @@ Specify your javascript payload in `payload.js`
 
 ### Browser with detect WPAD by default
 
-| Browser             | By default    | Manual activation |
-|--------------------|----------------|---------|
-| Internet Explorer  | ✔  | ✖ |
-| Google Chrome      | ✔  | ✖ |
-|       Firefox      | ✖  | ✔ |
-|       Opera        | ✔  | ✖ |
+| Browser             | By default    | Manual activation |Tested on |
+|--------------------|----------------|---------|---------|
+| Internet Explorer  | ✔  | ✖ | ✔ |
+| Google Chrome      | ✔  | ✖ | ✖ |
+|       Firefox      | ✖  | ✔ | ✖ |
+|       Opera        | ✔  | ✖ | ✖ |
 
 Testé sur Windows 7 64 bits
 ### Monitoring client
