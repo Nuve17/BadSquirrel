@@ -165,7 +165,7 @@ class ProxyRequestHandler(BaseHTTPRequestHandler):
 			print "[#] Certificate send to:",''.join(self.client_address[0].split(':')[-1:])
 			with open('ipclient.txt', 'a') as write_ip:
 				write_ip.write(''.join(self.client_address[0].split(':')[-1:])+"\n")
-			#self.send_cacert()
+			self.send_cacert()
 			return
 
 		print check_user(''.join(self.client_address[0].split(':')[-1:]))

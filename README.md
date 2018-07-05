@@ -36,11 +36,13 @@ Specify your javascript payload in `payload.js`
 | Browser             | By default    | Manual activation |Tested on |
 |--------------------|----------------|---------|---------|
 | Internet Explorer  | ✔  | ✖ | ✔ |
-| Google Chrome      | ✔  | ✖ | ✖ |
+| Google Chrome      | ✔  | ✖ | ✔ |
 |       Firefox      | ✖  | ✔ | ✖ |
 |       Opera        | ✔  | ✖ | ✖ |
 
 Testé sur Windows 7 64 bits
+Google Chrome demande a avoir l'authorité de certification en tant que racine mais pas IE
+
 ### Monitoring client
 
 Description by SPL
