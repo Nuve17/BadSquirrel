@@ -13,12 +13,12 @@
 
 
 ## Fontionnement
-1. Sature toutes les adresses IP du serveur DHCP légtimes (Gateway)  
+1. Sature toutes les adresses IP du serveur DHCP légitimes (Gateway)  
 2. Notre serveur DHCP malveillant propose des adresses IP avec l'option 252 (Web Proxy Auto-Detect) `http://10.0.2.10:7070/wpad.dat`  
 3. Le navigateur des victimes se connecte sur notre proxy  
-4. Ils sont redirigés sur une page de phising `rgpd.html`. Cette page leurs propose notre CA `Bad Squirrel CA`.  
+4. Ils sont redirigés sur une page de phishing `rgpd.html`. Cette page leurs propose notre CA `Bad Squirrel CA`.  
 5. Une fois la CA importé dans leurs navigateur nous pouvons leurs générer des certificat pour chaque site web consulté.  
-6. Sur chaque page avec `Content-type: html/text` nous injectons du JS qui monitore quel client nous avons infecté.
+6. Sur chaque page avec `Content-type: html/text` nous injectons du JS qui monitore quels clients nous avons infecté.
 
 ## Usage
 Configuration des machines virtuelle dans [virtualbox_scenario_instructions.md]  
@@ -54,9 +54,9 @@ Please update `requirements.txt` when you add new library with `pipreqs /path/to
 
 
 ## TODO
-1. Utiliser la page RGPD et pas envoie de `ca.crt` direct
+1. Utiliser la page RGPD et pas envoi de `ca.crt` direct
 2. Générer des JS malveillant  
-3. Choix des différent Payload
-4. Création d'un schema réseau pour l'explication du concepte
+3. Choix des différentes Payload
+4. Création d'un schema réseau pour l'explication du concept
 
 [virtualbox_scenario_instructions.md]: https://github.com/Nuve17/BadSquirrel/blob/master/virtualbox_scenario_instructions.md  
