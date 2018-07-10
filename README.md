@@ -45,7 +45,12 @@ Google Chrome demande a avoir l'authorité de certification en tant que racine m
 
 ### Monitoring client
 
-Description by SPL
+Le monitoring se fait via un serveur flask qui écoute sur le port 5000(configurable dans app.py) et reçoit des informations de chaque client.
+Ces informations sont ensuite vibiles depuis un dashboard accessible à l'adresse sur laquelle le serveur flask écoute
+Exemple : http://iplocaleduserveur:5000/dashboard
+
+Pour lancer le serveur de monitorinfg il faut se rendre dans le répertoire "Web", puis lancer :
+          # python3 app.py
 
 ### Dependencies
 Dependencies for Python 2.7 included in `requirements.txt` and can be installed  
