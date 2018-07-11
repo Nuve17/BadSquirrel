@@ -45,7 +45,21 @@ Google Chrome demande a avoir l'authorité de certification en tant que racine m
 
 ### Monitoring client
 
-Le monitoring se fait via un serveur flask qui écoute sur le port 5000(configurable dans app.py) et reçoit des informations de chaque client.
+Le monitoring se fait via un serveur flask qui écoute sur le port 5000 (le port est configurable dans app.py) et reçoit des informations ci-dessous relatives à chaque client
+
+  # -Informations du clients
+    - Id
+    - Adresse ip
+    - Timezone
+    - Processeur du client 
+    - Useragent
+    - OS
+    - Site web visité
+    
+
+
+
+
 
 Ces informations sont ensuite vibiles depuis un dashboard accessible à l'adresse sur laquelle le serveur flask écoute
 Exemple : http://iplocaleduserveur:5000/dashboard
