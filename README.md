@@ -19,7 +19,7 @@
 4. Ils sont redirigés sur une page de phishing `rgpd.html`. Cette page leurs propose notre CA `Bad Squirrel CA`.  
 5. Une fois la CA importé dans leurs navigateur nous pouvons leurs générer des certificat pour chaque site web consulté.  
 6. Sur chaque page avec `Content-type: html/text` nous injectons du JS qui monitore quels clients nous avons infecté.
-
+![schema](./Schema.png)
 ## Usage
 Configuration des machines virtuelle dans [virtualbox_scenario_instructions.md]  
 First start run `./setup_https_intercept.sh`   
@@ -48,15 +48,15 @@ Google Chrome demande a avoir l'authorité de certification en tant que racine m
 Le monitoring se fait via un serveur flask qui écoute sur le port 5000 (le port est configurable dans app.py) et reçoit des informations ci-dessous relatives à chaque client
 
   ##### Informations du client
-  
+
     - Id
     - Adresse ip
     - Timezone
-    - Processeur du client 
+    - Processeur du client
     - Useragent
     - OS
     - Site web visité
-    
+
 
 
 
