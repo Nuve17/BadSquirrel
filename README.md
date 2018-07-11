@@ -58,32 +58,26 @@ Le monitoring se fait via un serveur flask qui écoute sur le port 5000 (le port
     - Site web visité
 
 
-
-
-
-
 Ces informations sont ensuite vibiles depuis un dashboard accessible à l'adresse sur laquelle le serveur flask écoute
-Exemple : http://iplocaleduserveur:5000/dashboard
+Exemple : http://127.0.0.1:5000/dashboard
 
 Pour lancer le serveur de monitorinfg il faut se rendre dans le répertoire "Web", puis lancer :
 
           # python3 app.py
 
 ### Dependencies
+ 
   ##### Badsquirrel.py
           Dependencies for Python 2.7 included in `requirements.txt` and can be installed  
           using `pip` with `pip install -r requirements.txt`.  
           Please update `requirements.txt` when you add new library with `pipreqs /path/to/project`
+
+
   ##### app.py
-          Dependencies for Python 3 included in `requirements.txt` and can be installed  
-          using `pip` with `pip3 install -r requirements_app.txt`.  
-          Please update `requirements.txt` when you add new library with `pipreqs /path/to/project`
+          - flask
+          - flask_restful
 
 
-## TODO
-1. Utiliser la page RGPD et pas envoi de `ca.crt` direct
-2. Générer des JS malveillant  
-3. Choix des différentes Payload
-4. Création d'un schema réseau pour l'explication du concept
+
 
 [virtualbox_scenario_instructions.md]: https://github.com/Nuve17/BadSquirrel/blob/master/virtualbox_scenario_instructions.md  

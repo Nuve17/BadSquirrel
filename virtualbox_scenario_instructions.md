@@ -19,8 +19,12 @@ iface lo inet loopback
 auto eth0
 iface eth0 inet dhcp
 ```
+- /etc/hosts:
 
-
+```
+10.0.2.10	wpad.squirrel.bad
+10.0.2.10	web.squirrel.bad
+ ```
 ### Attacker
 - network adapter:
     - Host-only Adapter
@@ -36,7 +40,12 @@ iface eth0 inet static
     netmask 255.255.255.0
     gateway 10.0.2.15
 ```
+- /etc/hosts:
 
+```
+10.0.2.10	wpad.squirrel.bad
+10.0.2.10	web.squirrel.bad
+ ```
 
 ### Gateway
 - network adapter:
