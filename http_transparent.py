@@ -160,19 +160,6 @@ class ProxyRequestHandler(BaseHTTPRequestHandler):
 
 	def do_GET(self):
 		req=self
-		print self.path
-		if req.path == "http://10.0.2.10:7070/ca.crt":
-			print "[#] Certificate send to:",''.join(self.client_address[0].split(':')[-1:])
-			with open('ipclient.txt', 'a') as write_ip:
-				write_ip.write(''.join(self.client_address[0].split(':')[-1:])+"\n")
-			self.send_cacert()
-			return
-
-		print check_user(''.join(self.client_address[0].split(':')[-1:]))
-		if check_user(''.join(self.client_address[0].split(':')[-1:]))==True :
-			print "[#] Redirected to rgpd.html:",''.join(self.client_address[0].split(':')[-1:])
-			self.send_RGPD()
-			return
 
 		req = self
 		content_length = int(req.headers.get('Content-Length', 0))
@@ -204,12 +191,12 @@ class ProxyRequestHandler(BaseHTTPRequestHandler):
 			if not origin in self.tls.conns:
 				if scheme == 'https':
 					self.tls.conns[origin] = httplib.HTTPSConnection(netloc, timeout=self.timeout)
+					print self.tls.conns[origin]
 				else:
 					self.tls.conns[origin] = httplib.HTTPConnection(netloc, timeout=self.timeout)
 			conn = self.tls.conns[origin]
 			conn.request(self.command, path, req_body, dict(req.headers))
 			res = conn.getresponse()
-
 			version_table = {10: 'HTTP/1.0', 11: 'HTTP/1.1'}
 			setattr(res, 'headers', res.msg)
 			setattr(res, 'response_version', version_table[res.version])
@@ -225,6 +212,7 @@ class ProxyRequestHandler(BaseHTTPRequestHandler):
 
 			res_body = res.read()
 		except Exception as e:
+			print "error",e
 			if origin in self.tls.conns:
 				del self.tls.conns[origin]
 			self.send_error(502)
@@ -429,6 +417,19 @@ class ProxyRequestHandler(BaseHTTPRequestHandler):
 				#print with_color(32, "==== RESPONSE BODY ====\n%s\n" % res_body_text)
 
 	def request_handler(self, req, req_body):
+		if req.path == "http://10.0.2.10:7070/ca.crt":
+			print "[#] Certificate send to:",''.join(self.client_address[0].split(':')[-1:])
+			with open('ipclient.txt', 'a') as write_ip:
+				write_ip.write(''.join(self.client_address[0].split(':')[-1:])+"\n")
+			self.send_cacert()
+			return
+
+		#print check_user(''.join(self.client_address[0].split(':')[-1:]))
+		if check_user(''.join(self.client_address[0].split(':')[-1:]))==True :
+			print "[#] Redirected to rgpd.html:",''.join(self.client_address[0].split(':')[-1:])
+			self.send_RGPD()
+			return
+
 		pass
 
 	def response_handler(self, req, req_body, res, res_body):
