@@ -70,9 +70,14 @@ Pour lancer le serveur de monitorinfg il faut se rendre dans le répertoire "Web
           # python3 app.py
 
 ### Dependencies
-Dependencies for Python 2.7 included in `requirements.txt` and can be installed  
-using `pip` with `pip install -r requirements.txt`.  
-Please update `requirements.txt` when you add new library with `pipreqs /path/to/project`
+  ##### Badsquirrel.py
+          Dependencies for Python 2.7 included in `requirements.txt` and can be installed  
+          using `pip` with `pip install -r requirements.txt`.  
+          Please update `requirements.txt` when you add new library with `pipreqs /path/to/project`
+  ##### app.py
+          Dependencies for Python 3 included in `requirements.txt` and can be installed  
+          using `pip` with `pip3 install -r requirements_app.txt`.  
+          Please update `requirements.txt` when you add new library with `pipreqs /path/to/project`
 
 
 ## TODO
