@@ -10,8 +10,8 @@ app = Flask(__name__)
 
 @app.route('/client.min.js')
 def hello():
-    path = "./templates/client.min.js"
-    return open(path, 'rb').read()
+	path = "./templates/client.min.js"
+	return open(path, 'rb').read()
 
 
 
@@ -44,9 +44,10 @@ def receive():
 
 
 
+
 @app.route('/dashboard')
 def dashboard():
-	path = "./static/json_data/"
+	path = "static/json_data/"
 	fichier = []
 	#l = glob.glob(path+'\\*.json')
 	#for i in l:
@@ -58,7 +59,9 @@ def dashboard():
 	for root, dirs, files in os.walk(path):
 		for i in files:
 			print("fichhhhhhhhiiiiers : "+i)
+			print("https://127.0.0.1:5000/"+root+i)
 			fichier.append(os.path.join(root, i))
+			#fichier.append("https://127.0.0.1:5000/"+root+i)
 	return render_template('index.html',fichier=fichier, simple='simple')
 
 
@@ -66,5 +69,5 @@ def dashboard():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', ssl_context=('../certs/web.squirrel.bad.crt','../cert.key'))
-    #app.run(debug=True, host='0.0.0.0')
+	#app.run(debug=True, host='0.0.0.0', ssl_context=('../certs/web.squirrel.bad.crt','../cert.key'))
+	app.run(debug=True, host='0.0.0.0', ssl_context=('adhoc')) # Debug mode with self signed certificate
