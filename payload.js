@@ -97,8 +97,19 @@ var langage =  client.getSystemLanguage();
 var userAgent = client.getUserAgent();
 var os = client.getOS() + client.getOSVersion() ;
 var d = new Date();
-var dateid =""+d.getFullYear()+""+d.getMonth()+""+d.getDay()+""+d.getHours()+""+d.getMinutes();
-var current_date =""+d.getHours()+":"+d.getMinutes;
+var current_month = d.getMonth()+1;
+var current_date = d.getDate();
+var current_hour = d.getHours();
+
+if (current_date < 10){
+        current_date='0'+current_date;
+}
+
+if (current_hour < 10){
+        current_hour='0'+current_hour;
+}
+
+var dateid =""+d.getFullYear()+""+current_month+""+current_date+"_"+current_hour+""+d.getMinutes();
 
 
 var stone = ""+dateid+","+host+","+timeZone+","+cpuclient+","+userAgent+","+os+","+website;
